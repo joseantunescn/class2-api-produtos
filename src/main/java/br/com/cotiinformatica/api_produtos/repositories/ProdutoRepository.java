@@ -12,7 +12,7 @@ public class ProdutoRepository {
     public void create(Produto produto) throws Exception {
         // code to create a product in the database
         try (var connection = ConnectionFactory.getConnection()) {
-            var statement = connection.prepareStatement("insert into produtos (id, nome, preco, quantidade, dataHoraCadastro, ativo) values (?,?,?,?,?,?)");
+            var statement = connection.prepareStatement("insert into produtos (id, nome, preco, quantidade, data_hora_cadastro, ativo) values (?,?,?,?,?,?)");
             statement.setObject(1, produto.getId());
             statement.setString(2, produto.getNome());
             statement.setDouble(3, produto.getPreco());
