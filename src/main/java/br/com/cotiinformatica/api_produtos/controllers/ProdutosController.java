@@ -64,8 +64,18 @@ public class ProdutosController {
 
     @GetMapping
     public ResponseEntity<?> get() {
-        return ResponseEntity.ok().build();
+        try{
+            var produtoRepository = new ProdutoRepository();
+            var produtos = produtoRepository.read();
+            return ResponseEntity.status(200).body(produtos);
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao consultar ..." + e.getMessage());
+
+        }
     }
+
 
 }
 

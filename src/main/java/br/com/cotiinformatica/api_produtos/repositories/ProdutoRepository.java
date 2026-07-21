@@ -53,7 +53,7 @@ public class ProdutoRepository {
                 produto.setNome(result.getString("nome"));
                 produto.setPreco(result.getDouble("preco"));
                 produto.setQuantidade(result.getInt("quantidade"));
-                produto.setDataHoraCadastro(result.getTimestamp("dataHoraCadastro").toLocalDateTime());
+                produto.setDataHoraCadastro(result.getTimestamp("data_hora_cadastro").toLocalDateTime());
                 produto.setAtivo(result.getBoolean("ativo"));
                 lista.add(produto);
             }
