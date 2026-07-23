@@ -3,10 +3,10 @@ package br.com.cotiinformatica.api_produtos.dtos;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ProdutoPostResponse(
-        Integer status,
+public record ProdutoDeleteResponse(
+        int status,
         String mensagem,
-        LocalDateTime dataHoraCadastro,
+        LocalDateTime dataHoraExclusao,
         UUID produtoId
 ) {
 }

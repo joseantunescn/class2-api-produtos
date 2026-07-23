@@ -25,7 +25,7 @@ public class ProdutoRepository {
 
     public boolean update(Produto produto) throws Exception {
         try (var connection = ConnectionFactory.getConnection()) {
-            var statement = connection.prepareStatement("update produtos set nome = ?, preco = ?, quantidade = ?, ativo = ? where id = ?");
+            var statement = connection.prepareStatement("update produtos set nome = ?, preco = ?, quantidade = ? where id = ? and ativo = true");
             statement.setString(1, produto.getNome());
             statement.setDouble(2, produto.getPreco());
             statement.setInt(3, produto.getQuantidade());
@@ -61,5 +61,24 @@ public class ProdutoRepository {
         }
     }
 
+    public Produto readById (UUID id) throws Exception {
+        try (var connection = ConnectionFactory.getConnection()) {
+            var statement = connection.prepareStatement("select * from produtos where ativo = true and id = ?");
+            statement.setObject(1, id);
+            var result = statement.executeQuery();
 
+            if (result.next()) {
+                var produto = new Produto();
+                produto.setId((UUID) result.getObject("id"));
+                produto.setNome(result.getString("nome"));
+                produto.setPreco(result.getDouble("preco"));
+                produto.setQuantidade(result.getInt("quantidade"));
+                produto.setDataHoraCadastro(result.getTimestamp("data_hora_cadastro").toLocalDateTime());
+                produto.setAtivo(result.getBoolean("ativo"));
+                return produto;
+            } else {
+                return null;
+            }
+        }
+    }
 }
